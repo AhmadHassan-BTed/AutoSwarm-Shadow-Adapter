@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "openopc-shadow-adapter"
-version = "0.1.0"
+version = "1.0.0"
 description = "Zero-modification Human-in-the-Loop adapter for OpenOPC's agentic DAG runtime. Park work items for human review. Resume execution automatically."
 readme = "README.md"
 requires-python = ">=3.10"
