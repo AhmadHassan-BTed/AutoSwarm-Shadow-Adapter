@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import math
 import os
 import sys
 from collections.abc import Awaitable, Callable
@@ -36,6 +37,8 @@ class ShadowWorker:
         api_base: str | None = None,
         poll_interval: float = 3.0,
         custom_handler: TaskHandlerCallable | None = None,
+        search_provider: str | None = None,
+        research_timeout: float = 30.0,
     ) -> None:
         self.server_url = server_url.rstrip("/")
         self.username = username
@@ -47,6 +50,14 @@ class ShadowWorker:
         self.api_base = api_base or os.getenv("OLLAMA_HOST") or ""
         self.poll_interval = poll_interval
         self.custom_handler = custom_handler
+        self.search_provider = (
+            search_provider if search_provider is not None else os.getenv("SHADOW_SEARCH_PROVIDER", "parallel")
+        ).lower()
+        if self.search_provider not in ("parallel", "none"):
+            raise ValueError("search_provider must be 'parallel' or 'none'")
+        if not math.isfinite(research_timeout) or research_timeout <= 0:
+            raise ValueError("research_timeout must be finite and positive")
+        self.research_timeout = research_timeout
 
         self.access_token: str | None = None
         self._running = False
@@ -167,6 +178,20 @@ class ShadowWorker:
             f"Task: {task_title}\n\nBrief:\n{task_brief}\n\n"
             f"Please generate the complete professional deliverable."
         )
+
+        # Metadata is the permission boundary: never infer public queries from
+        # private corporate briefs or run web research for custom/mock providers.
+        metadata = task.get("opc_metadata") or {}
+        research = metadata.get("web_research")
+        if (
+            self.search_provider == "parallel"
+            and research is not None
+            and self.provider in ("ollama", "openai", "vllm", "litellm", "anthropic")
+        ):
+            from shadow_adapter.research import WebResearchRequest, collect_web_context
+
+            request = WebResearchRequest.model_validate(research)
+            prompt += await collect_web_context(request, self.model, self.research_timeout)
 
         logger.info(f"[ShadowWorker] Processing task '{task_title}' using provider '{self.provider}' ({self.model})")
 
@@ -329,6 +354,15 @@ def main() -> None:
     parser.add_argument("--api-base", default=None, help="Local API Base URL (e.g. http://localhost:11434)")
     parser.add_argument("--poll-interval", type=float, default=3.0, help="Polling interval in seconds")
     parser.add_argument("--once", action="store_true", help="Process at most one task and exit")
+    parser.add_argument(
+        "--search-provider",
+        choices=["parallel", "none"],
+        default=None,
+        help="Research provider for explicit task web_research metadata (env: SHADOW_SEARCH_PROVIDER; default: parallel)",
+    )
+    parser.add_argument(
+        "--research-timeout", type=float, default=30.0, help="Total web research timeout in seconds (default: 30)"
+    )
 
     args = parser.parse_args()
 
@@ -342,6 +376,8 @@ def main() -> None:
         api_key=args.api_key,
         api_base=args.api_base,
         poll_interval=args.poll_interval,
+        search_provider=args.search_provider,
+        research_timeout=args.research_timeout,
     )
 
     async def run():
