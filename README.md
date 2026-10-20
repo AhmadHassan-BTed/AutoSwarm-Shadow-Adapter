@@ -15,39 +15,39 @@
 
 <div align="center">
 
-# OpenOPC-Shadow-Adapter
-### Non-Blocking Human-in-the-Loop (HITL) & BYOC Infrastructure for OpenOPC
+# AutoSwarm-Shadow-Adapter
+### Non-Blocking Human-in-the-Loop (HITL) & BYOC Infrastructure for AutoSwarm
 
-**AI Agent Employees For Your Compan -- The Carbon-Silicon Continuum: Real Humans & Remote PCs as First-Class OpenOPC Employees**
+**AI Agent Employees For Your Compan -- The Carbon-Silicon Continuum: Real Humans & Remote PCs as First-Class AutoSwarm Employees**
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://pypi.org/project/openopc-shadow-adapter/)
-[![PyPI Package](https://img.shields.io/badge/pypi-v0.1.0--ready-0c111b?style=for-the-badge&logo=pypi&logoColor=white)](https://pypi.org/project/openopc-shadow-adapter/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://pypi.org/project/AutoSwarm-shadow-adapter/)
+[![PyPI Package](https://img.shields.io/badge/pypi-v0.1.0--ready-0c111b?style=for-the-badge&logo=pypi&logoColor=white)](https://pypi.org/project/AutoSwarm-shadow-adapter/)
 [![MIT License](https://img.shields.io/badge/license-MIT-22c55e?style=for-the-badge)](LICENSE)
 
 [![FastAPI](https://img.shields.io/badge/backend-FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![React 19](https://img.shields.io/badge/portal-React%2019%20%2B%20Tailwind-61DAFB?style=flat-square&logo=react&logoColor=black)](https://github.com/AhmadHassan-BTed/OpenOPC-Shadow-Adapter)
+[![React 19](https://img.shields.io/badge/portal-React%2019%20%2B%20Tailwind-61DAFB?style=flat-square&logo=react&logoColor=black)](https://github.com/AhmadHassan-BTed/AutoSwarm-Shadow-Adapter)
 [![SQLite WAL](https://img.shields.io/badge/storage-SQLite%20WAL-003B57?style=flat-square&logo=sqlite&logoColor=white)](https://www.sqlite.org/wal.html)
 [![JWT Auth](https://img.shields.io/badge/auth-JWT%20%2B%20bcrypt-F59E0B?style=flat-square)](https://jwt.io)
-[![Zero Core Modifications](https://img.shields.io/badge/core%20modifications-zero-ef4444?style=flat-square)](https://github.com/AhmadHassan-BTed/OpenOPC-Shadow-Adapter)
-[![OpenOPC Ecosystem](https://img.shields.io/badge/ecosystem-OpenOPC-6366f1?style=flat-square)](https://github.com/HKUDS/OpenOPC)
+[![Zero Core Modifications](https://img.shields.io/badge/core%20modifications-zero-ef4444?style=flat-square)](https://github.com/AhmadHassan-BTed/AutoSwarm-Shadow-Adapter)
+[![AutoSwarm Ecosystem](https://img.shields.io/badge/ecosystem-AutoSwarm-6366f1?style=flat-square)](https://github.com/HKUDS/AutoSwarm)
 
 <br/>
 
-> Built for [OpenOPC](https://github.com/HKUDS/OpenOPC) | Zero Core Modifications | Production Release v0.1.0
+> Built for [AutoSwarm](https://github.com/HKUDS/AutoSwarm) | Zero Core Modifications | Production Release v0.1.0
 
 </div>
 
 ---
 
-## What is OpenOPC-Shadow-Adapter?
+## What is AutoSwarm-Shadow-Adapter?
 
-`openopc-shadow-adapter` is a high-concurrency **Temporal Bridge** for OpenOPC. It allows OpenOPC agentic DAGs to pause non-blockingly when a role requires human sign-off (Carbon) or remote GPU execution (Silicon BYOC), without causing engine timeouts or stalling parallel branches.
+`AutoSwarm-shadow-adapter` is a high-concurrency **Temporal Bridge** for AutoSwarm. It allows AutoSwarm agentic DAGs to pause non-blockingly when a role requires human sign-off (Carbon) or remote GPU execution (Silicon BYOC), without causing engine timeouts or stalling parallel branches.
 
-1. **Non-Blocking Intercept**: Intercepts OpenOPC task execution in `<50ms`, parks the task in an isolated SQLite WAL database, and releases execution threads immediately with `AWAITING_HUMAN`.
+1. **Non-Blocking Intercept**: Intercepts AutoSwarm task execution in `<50ms`, parks the task in an isolated SQLite WAL database, and releases execution threads immediately with `AWAITING_HUMAN`.
 2. **Contractor & Silicon Worker Portal**: Provides a dedicated, secure React 19 UI and REST API (`shadow-serve`) for human reviewers and remote workers (`shadow-worker`).
 3. **Consolidated Corporate Brain**: Automatically packages ancestor deliverables, structured markdown briefs (`brief_md`), and uploaded file artifacts (`CorporateArtifacts`) for downstream context inheritance.
-4. **Canonical State Subordination**: Resumes OpenOPC's native `store.db` state machine (`delegation_work_items.phase`) instantly when deliverables are submitted.
-5. **Symbiotic Architecture**: Functions as an independent, non-invasive extension that plugs into OpenOPC's external agent registry (`ADAPTER_CLASSES["shadow"]`) with zero core repository modifications.
+4. **Canonical State Subordination**: Resumes AutoSwarm's native `store.db` state machine (`delegation_work_items.phase`) instantly when deliverables are submitted.
+5. **Symbiotic Architecture**: Functions as an independent, non-invasive extension that plugs into AutoSwarm's external agent registry (`ADAPTER_CLASSES["shadow"]`) with zero core repository modifications.
 
 ---
 
@@ -71,7 +71,7 @@ In finance, healthcare, legal, and security, frameworks (SOC 2, ISO 27001, GDPR)
 
 ## Feature Comparison
 
-| Capability | Standard OpenOPC | OpenOPC + Shadow Adapter |
+| Capability | Standard AutoSwarm | AutoSwarm + Shadow Adapter |
 |:---|:---|:---|
 | **Human response time > 900s** | Engine crash (timeout failure) | **Zero timeouts (unlimited duration)** |
 | **System restart resilience** | State lost | **Persisted in isolated SQLite WAL DB** |
@@ -86,7 +86,7 @@ In finance, healthcare, legal, and security, frameworks (SOC 2, ISO 27001, GDPR)
 
 ```mermaid
 flowchart LR
-    subgraph Engine ["OpenOPC Agentic DAG Engine"]
+    subgraph Engine ["AutoSwarm Agentic DAG Engine"]
         DAG["Multi-Agent DAG Execution\n(Parallel AI Tasks)"]
     end
 
@@ -104,7 +104,7 @@ flowchart LR
     end
 
     subgraph ResumeLayer ["DAG Unblock & Resume"]
-        OPCStore[("OpenOPC Engine Store\nstore.db (WAL Mode)")]
+        OPCStore[("AutoSwarm Engine Store\nstore.db (WAL Mode)")]
         UnblockNode(["Downstream DAG Nodes\nResume Automatically"])
     end
 
@@ -123,13 +123,13 @@ flowchart LR
 
 ## User Workflow & Execution Pipeline
 
-1. **Task Decomposing & Assignment**: When a user launches an OpenOPC session (e.g. `opc chat --mode company "Build feature X"`), OpenOPC's Manager AI creates work items and assigns them to configured role seats (e.g., `senior_developer`, `legal_counsel`).
-2. **Shadow Intercept (<50ms)**: Any role assigned `preferred_external_agent: shadow` is intercepted by `ShadowModeAdapter`. The adapter parses project goals, compiles a markdown task brief (`TaskBriefBuilder`), parks a record in `shadow_tasks.db`, and returns `AWAITING_HUMAN` to OpenOPC. Execution threads release immediately so parallel DAG tasks continue without timing out.
+1. **Task Decomposing & Assignment**: When a user launches an AutoSwarm session (e.g. `opc chat --mode company "Build feature X"`), AutoSwarm's Manager AI creates work items and assigns them to configured role seats (e.g., `senior_developer`, `legal_counsel`).
+2. **Shadow Intercept (<50ms)**: Any role assigned `preferred_external_agent: shadow` is intercepted by `ShadowModeAdapter`. The adapter parses project goals, compiles a markdown task brief (`TaskBriefBuilder`), parks a record in `shadow_tasks.db`, and returns `AWAITING_HUMAN` to AutoSwarm. Execution threads release immediately so parallel DAG tasks continue without timing out.
 3. **Task Claiming**:
    - **Human Contractor**: Logs into the Contractor Portal at `http://localhost:8800`, claims the pending task, and opens the interactive `TaskWorkspace`.
    - **Silicon BYOC Worker**: A remote GPU node running `shadow-worker --role senior_developer` polls the API, claims the task, and executes inference on its local model.
 4. **Deliverable Submission**: The worker reviews upstream subagent context, writes solution notes, and attaches deliverable files (up to 5 files / 50MB payload cap). Files are indexed into `CorporateArtifacts` with SHA-256 integrity hashes.
-5. **DAG Resumption**: `OpcResumeRepository` updates `delegation_work_items.phase` in OpenOPC's host `store.db`. OpenOPC wakes downstream DAG nodes, passing the uploaded artifacts forward.
+5. **DAG Resumption**: `OpcResumeRepository` updates `delegation_work_items.phase` in AutoSwarm's host `store.db`. AutoSwarm wakes downstream DAG nodes, passing the uploaded artifacts forward.
 
 For complete documentation:
 - 📖 **[Step-by-Step Execution Flow Walkthrough](docs/execution_flow.md)**
@@ -140,37 +140,37 @@ For complete documentation:
 
 ## Symbiotic Integration & Quick Start
 
-`openopc-shadow-adapter` is built to run as a **true symbiont** with OpenOPC. You can run the portal server embedded in your main Python process or as a standalone CLI sidecar.
+`AutoSwarm-shadow-adapter` is built to run as a **true symbiont** with AutoSwarm. You can run the portal server embedded in your main Python process or as a standalone CLI sidecar.
 
 ### Step 1: Install Package
 
 ```bash
-pip install openopc-shadow-adapter
+pip install AutoSwarm-shadow-adapter
 
 ```
 
 ### Step 2: Register & Launch Embedded (Zero Extra Commands)
 
-In your main OpenOPC application entry point (e.g., `main.py`), register the adapter and launch the Human Portal server concurrently in a background thread:
+In your main AutoSwarm application entry point (e.g., `main.py`), register the adapter and launch the Human Portal server concurrently in a background thread:
 
 ```python
-# main.py (Your OpenOPC application entry point)
+# main.py (Your AutoSwarm application entry point)
 from opc.layer3_agent.adapters.registry import ADAPTER_CLASSES
 from shadow_adapter import ShadowModeAdapter, start_server_in_thread
 
-# 1. Register "shadow" mode into OpenOPC's adapter registry
+# 1. Register "shadow" mode into AutoSwarm's adapter registry
 ADAPTER_CLASSES["shadow"] = ShadowModeAdapter
 
 # 2. Launch Human Web Portal concurrently on port 8800 (single process)
 start_server_in_thread(port=8800)
 
-# 3. Launch your OpenOPC DAG pipeline as normal!
+# 3. Launch your AutoSwarm DAG pipeline as normal!
 
 ```
 
 ### Step 3: Configure Target Roles
 
-In your OpenOPC organization config (`.opc/config/company_orgs/company_config.yaml`), set `preferred_external_agent: shadow` for human-backed roles:
+In your AutoSwarm organization config (`.opc/config/company_orgs/company_config.yaml`), set `preferred_external_agent: shadow` for human-backed roles:
 
 ```yaml
 # .opc/config/company_orgs/company_config.yaml
@@ -203,7 +203,7 @@ shadow-serve --port 8800
 
 ## Distributed Silicon Workforce (Bring Your Own Compute - BYOC)
 
-The **`shadow-worker`** daemon allows remote PCs, GPU workstations, and dedicated cloud nodes to act as specialized silicon employees. Each remote node runs its assigned role on its own local model or API key without modifying the central OpenOPC engine.
+The **`shadow-worker`** daemon allows remote PCs, GPU workstations, and dedicated cloud nodes to act as specialized silicon employees. Each remote node runs its assigned role on its own local model or API key without modifying the central AutoSwarm engine.
 
 ### Launch Remote Compute Nodes (3-PC Distributed Example)
 
@@ -278,7 +278,7 @@ asyncio.run(worker.run_forever())
 
 ## The Consolidated Corporate Brain (Knowledge Graph)
 
-A real company doesn't just pass text strings—employees share documents, reports, and data. `openopc-shadow-adapter` acts as the **Central Nervous System** for your AI and Human workforce by maintaining a centralized artifact registry.
+A real company doesn't just pass text strings—employees share documents, reports, and data. `AutoSwarm-shadow-adapter` acts as the **Central Nervous System** for your AI and Human workforce by maintaining a centralized artifact registry.
 
 ### 1. The Shared Artifact Registry
 
@@ -286,7 +286,7 @@ When a Silicon or Carbon employee finishes a task, their deliverables (PDFs, CSV
 
 ### 2. Hierarchical Context Injection
 
-The adapter dynamically parses your OpenOPC `company_config.yaml` to understand your corporate hierarchy. When a downstream Manager receives a task to "Review the Analyst's work," the adapter automatically packages and injects the Analyst's upstream artifacts directly into the Manager's workspace (via the React Portal or the `ShadowWorker` API payload).
+The adapter dynamically parses your AutoSwarm `company_config.yaml` to understand your corporate hierarchy. When a downstream Manager receives a task to "Review the Analyst's work," the adapter automatically packages and injects the Analyst's upstream artifacts directly into the Manager's workspace (via the React Portal or the `ShadowWorker` API payload).
 
 ### 3. Role-Based Inheritance
 
@@ -311,7 +311,7 @@ All detailed technical specifications are decoupled from this overview:
 | --- | --- | --- | --- |
 | `SHADOW_JWT_SECRET` | None | **Yes** | Secret key for signing JWT tokens (min 32 chars). |
 | `SHADOW_DB_PATH` | `./shadow_tasks.db` | No | Path for the isolated Shadow SQLite database. |
-| `SHADOW_OPC_STORE_PATH` | `.opc/projects/default/store.db` | No | Path to OpenOPC's `store.db` for WAL resume writes. |
+| `SHADOW_OPC_STORE_PATH` | `.opc/projects/default/store.db` | No | Path to AutoSwarm's `store.db` for WAL resume writes. |
 | `SHADOW_UPLOAD_DIR` | `./shadow_uploads` | No | Directory for storing deliverable attachments. |
 | `SHADOW_MAX_FILES_PER_SUBMISSION` | `5` | No | Max files permitted per submission. |
 | `SHADOW_MAX_FILE_SIZE_MB` | `10` | No | Max allowed size per file in MB. |
@@ -324,24 +324,24 @@ All detailed technical specifications are decoupled from this overview:
 
 ```bash
 # Run full anti-fragility & host integration test suite (55 tests)
-# Enforces Concurrency, Property-Based Fuzzing, Black Hole Exception Trapping, and OpenOPC Host Mutation Survival
+# Enforces Concurrency, Property-Based Fuzzing, Black Hole Exception Trapping, and AutoSwarm Host Mutation Survival
 pytest tests/ -v --cov=shadow_adapter --cov-report=term-missing
 
 # Run engine simulator demo
-python tests/mock_openopc_engine.py
+python tests/mock_AutoSwarm_engine.py
 
 ```
 
 ---
 
-**OpenOPC-Shadow-Adapter** | Non-Blocking Human-in-the-Loop Layer for OpenOPC
+**AutoSwarm-Shadow-Adapter** | Non-Blocking Human-in-the-Loop Layer for AutoSwarm
 
-[GitHub Repository](https://github.com/AhmadHassan-BTed/openopc-shadow-adapter) | [PyPI Package](https://pypi.org/project/openopc-shadow-adapter/) | [Issue Tracker](https://github.com/AhmadHassan-BTed/openopc-shadow-adapter/issues) | [Architecture Spec](https://www.google.com/search?q=docs/architecture.md)
+[GitHub Repository](https://github.com/AhmadHassan-BTed/AutoSwarm-shadow-adapter) | [PyPI Package](https://pypi.org/project/AutoSwarm-shadow-adapter/) | [Issue Tracker](https://github.com/AhmadHassan-BTed/AutoSwarm-shadow-adapter/issues) | [Architecture Spec](https://www.google.com/search?q=docs/architecture.md)
 
 ---
 
 <p align="center">
-  <em> Thanks for visiting 🖤 Build for OpenOPC Community</em><br><br>
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=HKUDS.OpenOPC&style=for-the-badge&color=00d4ff"
+  <em> Thanks for visiting 🖤 Build for AutoSwarm Community</em><br><br>
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=HKUDS.AutoSwarm&style=for-the-badge&color=00d4ff"
   alt="Views">
 </p>
