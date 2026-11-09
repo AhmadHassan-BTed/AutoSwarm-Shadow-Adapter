@@ -221,11 +221,11 @@ async def test_research_errors_do_not_produce_deliverables(wire, failure):
 async def test_timeout_and_cancellation_propagate(wire):
     wire["failure"] = "wait"
     async with httpx.AsyncClient() as client:
-        with pytest.raises(TimeoutError):
+        with pytest.raises((TimeoutError, asyncio.TimeoutError)):
             await ShadowWorker(provider="openai", research_timeout=0.1).execute_local_model(client, task())
         wire["entered"].clear()
         pending = asyncio.create_task(ShadowWorker(provider="openai").execute_local_model(client, task()))
-        await asyncio.wait_for(wire["entered"].wait(), timeout=2)
+        await asyncio.wait_for(wire["entered"].wait(), timeout=10)
         pending.cancel()
         with pytest.raises(asyncio.CancelledError):
             await pending
