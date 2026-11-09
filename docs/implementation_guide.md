@@ -148,3 +148,55 @@ Run the full automated test suite (64 tests) to verify system integrity:
 ```bash
 pytest tests/ -v --cov=shadow_adapter
 ```
+
+
+## Web research for worker deliverables
+
+Built-in model workers can prepare current web evidence before generating a
+deliverable. [Parallel Search MCP](https://docs.parallel.ai/integrations/mcp/search-mcp)
+is the default research provider, with free search powered by Fast mode and page
+fetching, without a Parallel account or API key. Research requires an explicit
+request in the OpenOPC task's `metadata`, which the adapter preserves as
+`opc_metadata`:
+
+```python
+task.metadata["web_research"] = {
+    "objective": "Find the current stable Python release and its supported platforms",
+    "search_queries": ["Python current stable release platforms"],
+    "urls": ["https://www.python.org/downloads/"],
+}
+```
+
+Supply `search_queries`, `urls`, or both. Use one focused objective (up to 200
+characters), up to three nonempty queries (200 characters each), and up to 20
+HTTP(S) URLs without embedded credentials. Requests to `https://search.parallel.ai/mcp`
+contain these explicit research inputs, the configured model name and an opaque
+research ID. Task titles, private briefs, corporate artifacts, and model
+credentials are not automatically included in research requests. Omit
+`web_research` for tasks that should use only their existing context.
+
+Search excerpts and requested page extracts are appended as untrusted evidence
+to the existing model prompt, with an instruction to cite source URLs. This works
+with the built-in Ollama, OpenAI, Anthropic, vLLM and LiteLLM paths. It prepares
+context once per task execution; the model does not autonomously call tools or
+follow links. Custom handlers and the `mock` provider keep their existing behavior.
+
+To disable external research on a worker, including requests in task metadata:
+
+```bash
+export SHADOW_SEARCH_PROVIDER=none
+shadow-worker --server-url http://localhost:8800 --once
+```
+
+`--search-provider parallel|none` overrides the environment. The Python SDK has
+the equivalent `ShadowWorker(search_provider="none")` option. An unconfigured
+worker selects `parallel`; unknown provider values fail instead of falling back.
+
+Research has a 30-second total timeout, configurable with `--research-timeout`
+or the SDK's `research_timeout`. Context is capped at 24,000 characters. Each
+execution gets a fresh opaque research ID shared by its search and fetch calls;
+concurrent tasks have separate IDs. The free service has usage quotas. Invalid
+requests, service errors and timeouts stop that task before model inference or
+deliverable submission. The task remains claimed, following the existing worker
+failure behavior; release it through the portal/API before retrying. Cancellation
+propagates to the research operation.
